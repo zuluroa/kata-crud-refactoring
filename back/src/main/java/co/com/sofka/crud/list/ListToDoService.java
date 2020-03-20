@@ -32,7 +32,7 @@ public class ListToDoService {
         toDo.setCompleted(toDoDTO.isCompleted());
         toDo.setName(toDoDTO.getName());
         toDo.setId(toDoDTO.getId());
-        toDo.setTodo(listToDoRepository.findById(listId)
+        toDo.setListToDo(listToDoRepository.findById(listId)
                 .orElseThrow(() -> new NotFoundIdException("No existe el id de la lista")));
         var id = toDoRepository.save(toDo).getId();
         toDoDTO.setId(id);

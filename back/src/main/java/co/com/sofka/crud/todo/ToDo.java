@@ -5,16 +5,15 @@ import co.com.sofka.crud.list.ListToDo;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "to_do")
 public class ToDo {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String name;
     private boolean completed;
 
     @ManyToOne
-    private ListToDo todo;
+    private ListToDo listToDo;
 
     public Long getId() {
         return id;
@@ -40,11 +39,11 @@ public class ToDo {
         this.completed = completed;
     }
 
-    public ListToDo getTodo() {
-        return todo;
+    public ListToDo getListToDo() {
+        return listToDo;
     }
 
-    public void setTodo(ListToDo todo) {
-        this.todo = todo;
+    public void setListToDo(ListToDo listToDo) {
+        this.listToDo = listToDo;
     }
 }

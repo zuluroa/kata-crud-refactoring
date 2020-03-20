@@ -6,15 +6,13 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "list_to_do")
 public class ListToDo {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL,  orphanRemoval = true)
-    @JoinColumn(name = "list_to_do_id")
     private List<ToDo> items;
 
     public Long getId() {
