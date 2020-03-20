@@ -5,6 +5,7 @@ import co.com.sofka.crud.list.ListToDo;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "to_do")
 public class ToDo {
     @Id
     @GeneratedValue
@@ -12,7 +13,7 @@ public class ToDo {
     private String name;
     private boolean completed;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private ListToDo todo;
 
     public Long getId() {

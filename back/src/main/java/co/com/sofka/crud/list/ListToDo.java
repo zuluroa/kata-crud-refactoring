@@ -3,18 +3,19 @@ package co.com.sofka.crud.list;
 import co.com.sofka.crud.todo.ToDo;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
+@Table(name = "list_to_do")
 public class ListToDo {
     @Id
     @GeneratedValue
     private Long id;
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<ToDo> items = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL,  orphanRemoval = true)
+    @JoinColumn(name = "list_to_do_id")
+    private List<ToDo> items;
 
     public Long getId() {
         return id;
@@ -32,11 +33,11 @@ public class ListToDo {
         this.name = name;
     }
 
-    public Set<ToDo> getItems() {
+    public List<ToDo> getItems() {
         return items;
     }
 
-    public void setItems(Set<ToDo> items) {
+    public void setItems(List<ToDo> items) {
         this.items = items;
     }
 }
