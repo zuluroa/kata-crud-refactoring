@@ -3,7 +3,7 @@ package co.com.sofka.crud.list;
 import co.com.sofka.crud.todo.ToDo;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class ListToDo {
@@ -13,7 +13,7 @@ public class ListToDo {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL,  orphanRemoval = true)
-    private List<ToDo> items;
+    private Set<ToDo> toDos;
 
     public Long getId() {
         return id;
@@ -31,11 +31,11 @@ public class ListToDo {
         this.name = name;
     }
 
-    public List<ToDo> getItems() {
-        return items;
+    public Set<ToDo> getToDos() {
+        return toDos;
     }
 
-    public void setItems(List<ToDo> items) {
-        this.items = items;
+    public void setToDos(Set<ToDo> toDos) {
+        this.toDos = toDos;
     }
 }

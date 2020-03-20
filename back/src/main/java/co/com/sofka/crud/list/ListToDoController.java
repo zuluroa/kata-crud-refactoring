@@ -18,25 +18,25 @@ public class ListToDoController {
 
     @GetMapping(value = "api/{listId}/todos")
     public Iterable<ToDoDTO> listToDo(@PathVariable("listId") Long listId){
-        return listToDoService.getToDosByListToDoId(listId);
+        return listToDoService.getItemsByListId(listId);
     }
     
     @PostMapping(value = "api/listtodo")
     public ListToDoDTO saveList(@RequestBody ListToDoDTO todo){
-        return listToDoService.saveListToDo(todo);
+        return listToDoService.saveList(todo);
     }
 
     @PutMapping(value = "api/{listId}/todo")
     public ToDoDTO update(@PathVariable("listId") Long listId, @RequestBody ToDoDTO todo){
         if(todo.getId() != null){
-            return listToDoService.saveToDo(listId, todo);
+            return listToDoService.updateItem(listId, todo);
         }
         throw new NotFoundIdException("No existe el id para actualizar");
     }
 
     @PostMapping(value = "api/{listId}/todo")
     public ToDoDTO save(@PathVariable("listId") Long listId, @RequestBody ToDoDTO todo){
-        return listToDoService.saveToDo(listId, todo);
+        return listToDoService.addNewItem(listId, todo);
     }
 
     @DeleteMapping(value = "api/{id}/todo")
