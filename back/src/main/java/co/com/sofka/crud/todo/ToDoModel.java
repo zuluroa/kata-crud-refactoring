@@ -1,14 +1,14 @@
 package co.com.sofka.crud.todo;
 
-public class ToDoDTO {
+public class ToDoModel {
     private Long listId;
     private Long id;
     private String name;
     private boolean completed;
-    public ToDoDTO() {
+    public ToDoModel() {
         super();
     }
-    public ToDoDTO(Long id, String name, boolean completed, Long listId) {
+    public ToDoModel(Long id, String name, boolean completed, Long listId) {
         this.id = id;
         this.name = name;
         this.completed = completed;

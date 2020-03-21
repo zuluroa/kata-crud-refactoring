@@ -1,20 +1,20 @@
 package co.com.sofka.crud.list;
 
-import co.com.sofka.crud.todo.ToDoDTO;
+import co.com.sofka.crud.todo.ToDoModel;
 
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ListToDoDTO {
+public class ToDoListModel {
     private Long id;
     private String name;
-    private Set<ToDoDTO> items = new HashSet<>();
+    private Set<ToDoModel> items = new HashSet<>();
 
-    public ListToDoDTO(){
+    public ToDoListModel(){
         super();
     }
-    public ListToDoDTO(Long id, String name, Set<ToDoDTO> items) {
+    public ToDoListModel(Long id, String name, Set<ToDoModel> items) {
         this.id = id;
         this.name = name;
         this.items = items;
@@ -36,11 +36,11 @@ public class ListToDoDTO {
         this.name = name;
     }
 
-    public Set<ToDoDTO> getItems() {
+    public Set<ToDoModel> getItems() {
         return items;
     }
 
-    public void setItems(Set<ToDoDTO> items) {
+    public void setItems(Set<ToDoModel> items) {
         this.items = items;
     }
 }
