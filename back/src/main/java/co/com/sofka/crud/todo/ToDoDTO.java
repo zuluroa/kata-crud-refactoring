@@ -1,17 +1,26 @@
 package co.com.sofka.crud.todo;
 
 public class ToDoDTO {
+    private Long listId;
     private Long id;
     private String name;
     private boolean completed;
-
-    public ToDoDTO(){
+    public ToDoDTO() {
         super();
     }
-    public ToDoDTO(Long id, String name, boolean completed) {
+    public ToDoDTO(Long id, String name, boolean completed, Long listId) {
         this.id = id;
         this.name = name;
         this.completed = completed;
+        this.listId = listId;
+    }
+
+    public Long getListId() {
+        return listId;
+    }
+
+    public void setListId(Long listId) {
+        this.listId = listId;
     }
 
     public Long getId() {

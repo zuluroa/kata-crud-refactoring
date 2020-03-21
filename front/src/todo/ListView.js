@@ -10,17 +10,24 @@ export default ({ listId, todo }) => {
         return element.listId === listId;
     });
     useEffect(() => {
-        consumer.findAll(listId).then((items) => {
-            console.log("successful ToDo");
-            setLoaded(true);
-            dispatch(events.finded(listId, items));
+        consumer.findAll(listId).then((response) => {
+            if(response.ok){
+                response.json().then((items) => {
+                    console.log("successful ToDo");
+                    setLoaded(true);
+                    dispatch(events.finded(listId, items));
+                })
+            }
+            
         });
     }, [listId, dispatch]);
 
 
-    const onDelete = (item) => {
-        consumer.delete(item.id).then(() => {
-            dispatch(events.deleted(listId, item));
+    const onDelete = (itemId) => {
+        consumer.delete(itemId).then((response) => {
+            if(response.ok){
+                dispatch(events.deleted(listId, itemId));
+            }
         })
     };
 
@@ -34,31 +41,38 @@ export default ({ listId, todo }) => {
             id: item.id,
             completed: event.target.checked
         };
-        consumer.update(listId, request).then(() => {
-            dispatch(events.updated(listId, request))
+        consumer.update(listId, request).then((response) => {
+            if(response.ok){
+                response.json().then(() => {
+                    dispatch(events.updated(listId, request))
+                })
+            }
         });
     };
 
     const decorationDone = {
-        textDecoration: 'line-through'
+        textDecoration: 'line-through',
+        color: '#c3c3c3'
     };
     return <div>
+        {!isLoaded && <div>Loading...</div>}
         <table >
             <thead>
                 <tr>
                     <td>ID</td>
                     <td>Tarea</td>
                     <td>¿Completado?</td>
+                    <td></td>
                 </tr>
             </thead>
             <tbody>
-                {isLoaded && list.map((todo) => {
-                    return <tr key={todo.id} style={todo.completed ? decorationDone : {}}>
+                {list.map((todo) => {
+                    return <tr key={todo.id} style={todo.completed ? decorationDone : {}}  id={"to-do-"+todo.id}>
                         <td>{todo.id}</td>
                         <td>{todo.name}</td>
                         <td><input type="checkbox" defaultChecked={todo.completed} onChange={(event) => onChange(event, todo)}></input></td>
                         <td><button onClick={() => onDelete(todo.id)}>Eliminar</button></td>
-                        <td><button onClick={() => onEdit(todo)}>Editar</button></td>
+                        <td><button disabled={todo.completed} onClick={() => onEdit(todo)}>Editar</button></td>
                     </tr>
                 })}
             </tbody>

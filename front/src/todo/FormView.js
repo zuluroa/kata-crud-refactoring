@@ -18,10 +18,15 @@ export default ({ listId, todo }) => {
             completed: false
         };
 
-        consumer.save(listId, request).then((result) => {
-            dispatch(events.saved(listId, result));
-            setState({ name: "" });
-            formRef.current.reset();
+        consumer.save(listId, request).then((response) => {
+            if(response.ok){
+                response.json().then((result) => {
+                    dispatch(events.saved(listId, result));
+                    setState({ name: "" });
+                    formRef.current.reset();
+                });
+            }
+           
         });
 
     }
@@ -35,10 +40,15 @@ export default ({ listId, todo }) => {
             completed: item.completed
         };
 
-        consumer.update(listId, request).then((result) => {
-            dispatch(events.updated(listId, result));
-            setState({ name: "" });
-            formRef.current.reset();
+        consumer.update(listId, request).then((response) => {
+            if(response.ok){
+                response.json().then((result) => {
+                    dispatch(events.updated(listId, result));
+                    setState({ name: "" });
+                    formRef.current.reset();
+                });
+            }
+           
         });
     }
 
@@ -48,7 +58,7 @@ export default ({ listId, todo }) => {
         <input
             type="text"
             name="name"
-            placeholder="¿Qué piensas hacer hoy?"
+            placeholder="¿Qué piensas hacer?"
             defaultValue={item.name}
             onChange={(event) => {
                 setState({ ...state, name: event.target.value })

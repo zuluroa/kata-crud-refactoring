@@ -6,15 +6,19 @@ import Store from "../store"
 export default () => {
     const { dispatch } = useContext(Store);
     const formRef = useRef(null);
-    const [state, setState] = useState({});
+    const [state, setState] = useState({ name: "" });
 
     const onCreate = (event) => {
         event.preventDefault();
         consumer.save({ name: state.name, id: null })
-            .then((newList) => {
-                dispatch(events.saved(newList));
-                formRef.current.reset();
-                setState({})
+            .then((response) => {
+                if (response.ok) {
+                    response.json().then((newList) => {
+                        dispatch(events.saved(newList));
+                        formRef.current.reset();
+                        setState({ name: "" })
+                    })
+                }
             });
 
     };
@@ -25,7 +29,7 @@ export default () => {
             name="name"
             placeholder="Lista de TO-DO"
             onChange={(event) => {
-                setState({ ...state, name: event.target.value })
+                setState({ name: event.target.value })
             }}  ></input>
         <button onClick={onCreate}>Nueva lista</button>
     </form>

@@ -2,7 +2,8 @@ const HOST_API = "http://localhost:8080/api/"
 export default {
     findAll : async (listId) => {
         return fetch(HOST_API + listId+"/todos")
-            .then(response => response.json())
+            .catch(error => console.error('Error:', error))
+
     },
 
     save : async (listId, request) => {
@@ -12,7 +13,9 @@ export default {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(response => response.json())
+        })
+        .catch(error => console.error('Error:', error))
+
     },
 
     update : async (listId, request) => {
@@ -22,7 +25,9 @@ export default {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(response => response.json())
+        })
+        .catch(error => console.error('Error:', error))
+
     },
 
     delete : async (id) => {
@@ -32,5 +37,6 @@ export default {
                 'Content-Type': 'application/json'
             }
         })
+        .catch(error => console.error('Error:', error))
     },
 };

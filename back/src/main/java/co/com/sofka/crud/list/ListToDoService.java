@@ -2,61 +2,75 @@ package co.com.sofka.crud.list;
 
 import co.com.sofka.crud.todo.ToDo;
 import co.com.sofka.crud.todo.ToDoDTO;
+import co.com.sofka.crud.todo.ToDoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
 public class ListToDoService {
-    @Autowired
+
+    public static final String NO_FAULT_ID = "No existe el id de la lista";
     private ListToDoRepository listToDoRepository;
+    private ToDoRepository toDoRepository;
 
+    @Autowired
+    public ListToDoService(ListToDoRepository listToDoRepository, ToDoRepository toDoRepository) {
+        this.listToDoRepository = listToDoRepository;
+        this.toDoRepository = toDoRepository;
+    }
 
-    public Set<ToDoDTO> getItemsByListId(Long id){
+    public Set<ToDoDTO> getToDosByListId(Long id) {
         return listToDoRepository.findById(id)
-                .orElseThrow(() -> new NotFoundIdException("No existe el id de la lista"))
+                .orElseThrow(() -> new NotFoundIdException(NO_FAULT_ID))
                 .getToDos().stream()
-                .map(item -> new ToDoDTO(item.getId(), item.getName(), item.isCompleted()))
+                .map(item -> new ToDoDTO(item.getId(), item.getName(), item.isCompleted(), id))
                 .collect(Collectors.toSet());
     }
 
-    public ToDoDTO addNewItem(Long listId, ToDoDTO aToDoDTO){
+    public ToDoDTO addNewToDoByListId(Long listId, ToDoDTO aToDoDTO) {
         var listToDo = listToDoRepository.findById(listId)
-                .orElseThrow(() -> new NotFoundIdException("No existe el id de la lista"));
+                .orElseThrow(() -> new NotFoundIdException(NO_FAULT_ID));
         var toDo = new ToDo();
 
+
         toDo.setCompleted(aToDoDTO.isCompleted());
-        toDo.setName(aToDoDTO.getName());
+        toDo.setName(Objects.requireNonNull(aToDoDTO.getName()));
         toDo.setId(aToDoDTO.getId());
-        toDo.setListToDo(listToDo);
+
+        if(toDo.getName().isEmpty() || toDo.getName().length() < 3){
+            throw new ToDoBusinessException("No valid entity To-Do to be save");
+        }
 
         //addition new to-do
         listToDo.getToDos().add(toDo);
 
         var listUpdated = listToDoRepository.save(listToDo);
-
-        //last to-do saved given of the max value by id
-        setIdForNewItem(aToDoDTO, listUpdated);
-
+        //last item
+        var lastToDo = listUpdated.getToDos()
+                .stream()
+                .max(Comparator.comparingInt(item -> item.getId().intValue()))
+                .orElseThrow();
+        aToDoDTO.setId(lastToDo.getId());
+        aToDoDTO.setListId(listId);
         return aToDoDTO;
     }
 
-    public ToDoDTO updateItem(Long listId, ToDoDTO aToDoDTO){
+    public ToDoDTO updateAToDoByListId(Long listId, ToDoDTO aToDoDTO) {
         var listToDo = listToDoRepository.findById(listId)
-                .orElseThrow(() -> new NotFoundIdException("No existe el id de la lista"));
+                .orElseThrow(() -> new NotFoundIdException(NO_FAULT_ID));
 
         //edit to-do
         for(var item : listToDo.getToDos()){
             if(item.getId().equals(aToDoDTO.getId())){
                 item.setCompleted(aToDoDTO.isCompleted());
-                item.setName(aToDoDTO.getName());
-                item.setId(aToDoDTO.getId());
-                item.setListToDo(listToDo);
+                item.setName(Objects.requireNonNull(aToDoDTO.getName()));
+                item.setId(Objects.requireNonNull(aToDoDTO.getId()));
             }
         }
 
@@ -65,46 +79,45 @@ public class ListToDoService {
         return aToDoDTO;
     }
 
-    private void setIdForNewItem(ToDoDTO aToDoDTO, ListToDo listUpdated) {
-        var lastToDo = listUpdated.getToDos()
-                .stream()
-                .max(Comparator.comparingInt(item -> item.getId().intValue()))
-                .orElseThrow();
-        aToDoDTO.setId(lastToDo.getId());
-    }
 
-    public ListToDoDTO saveList(ListToDoDTO aListToDoDTO){
+    public ListToDoDTO newListToDo(ListToDoDTO aListToDoDTO) {
         var listToDo = new ListToDo();
-        listToDo.setName(aListToDoDTO.getName());
-        listToDo.setId(aListToDoDTO.getId());
+        listToDo.setName(Objects.requireNonNull(aListToDoDTO.getName()));
+        if(listToDo.getName().isEmpty() || listToDo.getName().length() < 3){
+            throw new ToDoBusinessException("No valid entity List To-Do to be save");
+        }
         var id = listToDoRepository.save(listToDo).getId();
         aListToDoDTO.setId(id);
         return aListToDoDTO;
     }
 
-    public Set<ListToDoDTO> getListToDoAll(){
+    public Set<ListToDoDTO> getAllListToDos() {
         return StreamSupport
                 .stream(listToDoRepository.findAll().spliterator(), false)
-                .map(toDo -> {
-                    var listDto = toDo.getToDos()
+                .map(toDoList -> {
+                    var listDto = toDoList.getToDos()
                             .stream()
-                            .map(item -> new ToDoDTO(item.getId(), item.getName(), item.isCompleted()))
+                            .map(item -> new ToDoDTO(item.getId(), item.getName(), item.isCompleted(), toDoList.getId()))
                             .collect(Collectors.toSet());
-                    return new ListToDoDTO(toDo.getId(), toDo.getName(), listDto);
+                    return new ListToDoDTO(toDoList.getId(), toDoList.getName(), listDto);
                 })
                 .collect(Collectors.toSet());
     }
 
-    public void delete(Long id) {
-
+    public void deleteListById(Long listId){
+        var listToDo = listToDoRepository.findById(listId)
+                .orElseThrow(() -> new NotFoundIdException(NO_FAULT_ID));
+        listToDoRepository.delete(listToDo);
     }
 
-    public ToDoDTO get(Long id) {
-        return StreamSupport
-                .stream(listToDoRepository.findAllToDosById(id).spliterator(), false)
-                .filter(toDo -> id.equals(toDo.getId()))
-                .findFirst()
-                .map(toDo -> new ToDoDTO(toDo.getId(), toDo.getName(), toDo.isCompleted()))
+    public void deleteAToDoById(Long id) {
+        var toDo = toDoRepository.findById(id).orElseThrow();
+        toDoRepository.delete(toDo);
+    }
+
+    public ToDoDTO getAToDoById(Long id) {
+        return toDoRepository.findById(id)
+                .map(item -> new ToDoDTO(item.getId(), item.getName(), item.isCompleted(), null))
                 .orElseThrow();
     }
 }

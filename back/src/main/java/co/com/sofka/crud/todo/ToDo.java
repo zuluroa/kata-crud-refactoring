@@ -1,6 +1,5 @@
 package co.com.sofka.crud.todo;
 
-import co.com.sofka.crud.list.ListToDo;
 
 import javax.persistence.*;
 
@@ -11,9 +10,6 @@ public class ToDo {
     private Long id;
     private String name;
     private boolean completed;
-
-    @ManyToOne
-    private ListToDo listToDo;
 
     public Long getId() {
         return id;
@@ -39,11 +35,4 @@ public class ToDo {
         this.completed = completed;
     }
 
-    public ListToDo getListToDo() {
-        return listToDo;
-    }
-
-    public void setListToDo(ListToDo listToDo) {
-        this.listToDo = listToDo;
-    }
 }

@@ -9,7 +9,8 @@ const initialState = {
     todo: {
         elements: [],
         item: {}
-    }
+    },
+    mensage: {}
 };
 const Store = createContext(initialState);
 
@@ -21,7 +22,6 @@ function reducer(state, action) {
 
 export const StoreProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
-
     return <Store.Provider value={{ state, dispatch }}>
         {children}
     </Store.Provider>
