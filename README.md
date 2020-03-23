@@ -10,8 +10,9 @@ En el siguiente proyecto se presenta algunos conceptos de Full Stack, trabajando
 - NPM > v3 
 - Java > v11 
 
-### Requerimientos la solución
-- Docker + Docker Compose
+### Requerimientos para la solución
+- Docker > v19
+- Docker Compose > v1
 
 ### Caso de Uso
 
