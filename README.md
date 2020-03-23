@@ -16,7 +16,7 @@ Se tiene presente un formulario donde se registra unas tareas basadas en una lis
 
 #### Demo
 
-![alt text]( ./demo.gif "Demo funcional del ToDo")
+![alt text]( ./todo-list-kata.gif "Demo funcional del ToDo List")
  
 ### Instalación
 
@@ -46,8 +46,5 @@ Dentro del back-end no se tiene una base de datos basada en servidor. Se debe ap
 
 Hacer un fork en su propio namespace y presentar la solución más valida para ser discutida, argumentar los aspectos de mejora y aplicar algunas técnica de refactorización. Resolverlo de forma individual, aplicar los commit para cada paso que se realice en la refactorización. 
 
-Realizar la siguiente representación donde se tiene TO-Do List agrupado en listas.
-
-![alt text]( ./todo-list-kata.gif "Demo funcional del ToDo List")
 
 
