@@ -15,7 +15,6 @@ export default () => {
     action[actionType.LIST_CREATED] = (state, action) => {
         const list = state.todo.elements;
         list.push(action.item);
-        console.log(list);
         return { ...state, todo: { elements: list, item: {} } }
     };
 

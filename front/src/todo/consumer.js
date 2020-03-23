@@ -1,4 +1,4 @@
-const HOST_API = "http://localhost:8080/api/"
+const HOST_API = window._env.HOST_API || "http://127.0.0.1:8080/api/"
 export default {
     findAll : async (listId) => {
         return fetch(HOST_API + listId+"/todos")

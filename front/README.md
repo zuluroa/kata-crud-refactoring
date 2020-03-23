@@ -1,68 +1,49 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Aplicación Front-End
 
-## Available Scripts
+Vista que representa un CRUD de una lista de tareas para hacer, se diseña con el objetivo de tener listas agrupadas donde se permita gestionar y mantener de forma facil. 
 
-In the project directory, you can run:
+## Característica técnicas
 
-### `npm start`
+### Requerimientos 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- NodeJS > v12
+- NPM > v6
+- Docker (opcional)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+> El back-end debe estar levantado y funcional para poder aplicar a todoas las funcionalidades del CRUD.
 
-### `npm test`
+### Dependencias
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- El back-end corriendo en la misma maquina
+- Base de datos selecionada desde el back-end
 
-### `npm run build`
+### Objetivo esperado
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![alt text]( ./todo-list-kata.gif "Demo funcional del ToDo List")
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Comandos y configuraciones
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Comando para instalar los modulo del proyecto:
 
-### `npm run eject`
+```npm install```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Para poner en marcha el proyecto (!IMPORTANTE: debe tener el back arriba):
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```npm start```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Construir el artefacto para el despliegue:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```npm run build```
 
-## Learn More
+Construir la imagen en Docker:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```docker build --build-arg HOST_API=http://localhost:8080/api/ -t todo-list-front .```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+*Se construye la imagen injectando el argumento para consumir la API*
 
-### Code Splitting
+## Notas
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- Esta aplicación esta diseñado con React en su totalidad, donde se pone en práctica los conceptos de React+Hooks
+- Se tiene una estructura de separación de resposabilidades, donde se comparte estados a partir de un Store global.
+- No se explora prueba unitarias, no es el alcance de esta práctca.
+- El diseño de arquitectura es orintada a eventos y acciones (se usa reducer).

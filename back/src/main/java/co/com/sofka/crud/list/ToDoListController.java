@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"${settings.cors_origin}"})
 public class ToDoListController {
 
     private ToDoListService toDoListService;
@@ -51,11 +51,6 @@ public class ToDoListController {
     @DeleteMapping(value = "api/{id}/todo")
     public void deleteAToDoById(@PathVariable("id")Long id){
         toDoListService.deleteAToDoById(id);
-    }
-
-    @GetMapping(value = "api/{id}/todo")
-    public ToDoModel getAToDoById(@PathVariable("id") Long id){
-        return toDoListService.getAToDoById(id);
     }
 
 }

@@ -38,7 +38,6 @@ public class ToDoListService {
                 .orElseThrow(() -> new NotFoundIdException(NO_FAULT_ID));
         var toDo = new ToDo();
 
-
         toDo.setCompleted(aToDoModel.isCompleted());
         toDo.setName(Objects.requireNonNull(aToDoModel.getName()));
         toDo.setId(aToDoModel.getId());
@@ -113,11 +112,5 @@ public class ToDoListService {
     public void deleteAToDoById(Long id) {
         var toDo = toDoRepository.findById(id).orElseThrow();
         toDoRepository.delete(toDo);
-    }
-
-    public ToDoModel getAToDoById(Long id) {
-        return toDoRepository.findById(id)
-                .map(item -> new ToDoModel(item.getId(), item.getName(), item.isCompleted(), null))
-                .orElseThrow();
     }
 }
