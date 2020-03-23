@@ -4,11 +4,14 @@
 
 En el siguiente proyecto se presenta algunos conceptos de Full Stack, trabajando con Spring Boot + ReactJS.
 
-### Requerimientos
+### Requerimientos para desarrollo
 - Maven > v3
 - NodeJS > v6
-- NPM > v3
-- Java > v11
+- NPM > v3 
+- Java > v11 
+
+### Requerimientos la solución
+- Docker + Docker Compose
 
 ### Caso de Uso
 
