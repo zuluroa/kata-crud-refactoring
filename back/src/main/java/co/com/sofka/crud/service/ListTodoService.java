@@ -1,5 +1,7 @@
 package co.com.sofka.crud.service;
 
+import co.com.sofka.crud.dto.ListTodoDto;
+import co.com.sofka.crud.mapper.ListTodoMapper;
 import co.com.sofka.crud.model.ListTodo;
 import co.com.sofka.crud.repository.ListTodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +13,16 @@ public class ListTodoService {
     @Autowired
     ListTodoRepository repository;
 
-    public Iterable<ListTodo> list(){
-        return repository.findAll();
+    @Autowired
+    ListTodoMapper mapper;
+
+    public Iterable<ListTodoDto> list(){
+         return mapper.toListTodoDtos(repository.findAll());
     }
 
-    public ListTodo save(ListTodo todo){
-        return repository.save(todo);
+    public ListTodoDto save(ListTodoDto todoListDto){
+        ListTodo listTodo = mapper.toListTodo(todoListDto);
+        return mapper.toListTodoDto(repository.save(listTodo));
     }
 
     public void delete(Long id){

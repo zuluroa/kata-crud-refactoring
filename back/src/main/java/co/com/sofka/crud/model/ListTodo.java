@@ -10,7 +10,7 @@ public class ListTodo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String Listname;
+    private String listname;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "groupListId")
@@ -25,11 +25,11 @@ public class ListTodo {
     }
 
     public String getListname() {
-        return Listname;
+        return listname;
     }
 
     public void setListname(String listname) {
-        Listname = listname;
+        this.listname = listname;
     }
 
     public Set<Todo> getTodos() {
@@ -38,5 +38,14 @@ public class ListTodo {
 
     public void setTodos(Set<Todo> todos) {
         this.todos = todos;
+    }
+
+    @Override
+    public String toString() {
+        return "ListTodo{" +
+                "id=" + id +
+                ", Listname='" + listname + '\'' +
+                ", todos=" + todos +
+                '}';
     }
 }
