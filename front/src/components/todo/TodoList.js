@@ -3,10 +3,11 @@ import { HOST_API } from "../utils/hostApi";
 import Store from "../context/Context";
 
 
-const TodoList = () => {
+const TodoList = ({listTodoId}) => {
   const { state: { todo }, dispatch } = useContext(Store);
-  const currentList = todo.list;
-
+  const currentList = todo.list.filter(todo => {
+    return todo.groupListId === listTodoId;
+  });
   useEffect(() => {
     fetch(HOST_API + "/todos")
       .then(response => response.json())

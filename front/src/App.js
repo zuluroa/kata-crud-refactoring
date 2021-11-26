@@ -1,13 +1,18 @@
 import React from 'react';
 import StoreProvider from './components/context/State';
-import TodoForm from './components/todo/TodoForm';
-import TodoList from './components/todo/TodoList';
+import ListTodo from './components/list/listTodo';
 
 function App() {
   return <StoreProvider>
-    <h3>To-Do List</h3>
-    <TodoForm />
-    <TodoList />
+    <div className="container text-center">
+    <h1>Dashboard</h1>
+      <br />
+      <div className="row border rounded">
+      <ListTodo />
+      </div>
+      <br />
+
+    </div>
   </StoreProvider>
 }
 

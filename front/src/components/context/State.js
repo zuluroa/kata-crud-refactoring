@@ -5,7 +5,8 @@ import Store from "./Context";
 const StoreProvider = (props) => {
 
     const initialState = {
-        todo: { list: [], item: {} }
+        todo: { list: [], item: {} },
+        listTodo: { list: [], item: {} }
     };
 
     const [state, dispatch] = useReducer(Reducer, initialState);

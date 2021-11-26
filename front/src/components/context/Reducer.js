@@ -1,5 +1,9 @@
 export default (state, action) => {
     switch (action.type) {
+        case 'updateListTodo-list':
+            const updateListTodo = state.listTodo;
+            updateListTodo.list = action.list;
+            return { ...state, listTodo: updateListTodo }
         case 'update-item':
             const todoUpItem = state.todo;
             const listUpdateEdit = todoUpItem.list.map((item) => {
