@@ -20,7 +20,7 @@ const ListTodo = () => {
     fetch(HOST_API_LIST + "/" + id + "/list", {
       method: "DELETE"
     }).then((list) => {
-      dispatch({ type: "delete-item", id })
+      dispatch({ type: "deleteListTodo-list", id })
     })
   };
 

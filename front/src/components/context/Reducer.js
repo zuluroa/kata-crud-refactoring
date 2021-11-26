@@ -4,6 +4,13 @@ export default (state, action) => {
             const updateListTodo = state.listTodo;
             updateListTodo.list = action.list;
             return { ...state, listTodo: updateListTodo }
+        case 'deleteListTodo-list':
+            const deleteListTodo = state.listTodo;
+            const listTodoIsUpdate = deleteListTodo.list.filter((item) => {
+                return item.id !== action.id;
+            });
+            deleteListTodo.list = listTodoIsUpdate;
+            return { ...state, listTodo: deleteListTodo }
         case 'update-item':
             const todoUpItem = state.todo;
             const listUpdateEdit = todoUpItem.list.map((item) => {
