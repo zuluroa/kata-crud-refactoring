@@ -33,7 +33,8 @@ const TodoList = ({listTodoId}) => {
     const request = {
       name: todo.name,
       id: todo.id,
-      completed: event.target.checked
+      completed: event.target.checked,
+      groupListId : todo.groupListId
     };
     fetch(HOST_API + "/todo", {
       method: "PUT",
