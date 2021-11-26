@@ -1,6 +1,7 @@
 import React from 'react';
 import StoreProvider from './components/context/State';
 import ListTodo from './components/list/listTodo';
+import ListTodoForm from './components/list/listTodoFrom';
 
 function App() {
   return <StoreProvider>
@@ -8,10 +9,10 @@ function App() {
     <h1>Dashboard</h1>
       <br />
       <div className="row border rounded">
-      <ListTodo />
+      <ListTodoForm/>
       </div>
       <br />
-
+      <ListTodo />
     </div>
   </StoreProvider>
 }

@@ -11,6 +11,10 @@ export default (state, action) => {
             });
             deleteListTodo.list = listTodoIsUpdate;
             return { ...state, listTodo: deleteListTodo }
+        case 'listTodoAdd-list':
+            const ListTodoAdd = state.listTodo.list;
+            ListTodoAdd.push(action.item);
+            return { ...state, listTodo: { list: ListTodoAdd, item: {} } }
         case 'update-item':
             const todoUpItem = state.todo;
             const listUpdateEdit = todoUpItem.list.map((item) => {
