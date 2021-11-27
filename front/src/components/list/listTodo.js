@@ -25,12 +25,17 @@ const ListTodo = () => {
         })
     };
 
-    return <div className="container text-center">
+    return <div >
         {currentList.map((listTodo) => {
-            return <tr key={listTodo.id}>
-                <div>
-                    <td>{listTodo.listname}</td>
-                    <td><button onClick={() => onDelete(listTodo.id)}>Eliminar</button></td>
+            return <tr key={listTodo.id} >
+                <div className="shadow p-4 mb-2 bg-white rounded" >
+                    <div className="input-group">
+                        <h3>LISTA: {listTodo.listname} </h3>
+                        <span className="input-group-btn">
+                            <button className="btn btn-primary" onClick={() => onDelete(listTodo.id)}>Eliminar</button>
+                        </span>
+                    </div>
+                    <br></br>
                     <TodoForm listTodoId={listTodo.id} />
                     <TodoList listTodoId={listTodo.id} />
                 </div>

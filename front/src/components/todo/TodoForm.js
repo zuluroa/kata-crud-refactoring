@@ -2,6 +2,7 @@ import React, { useContext, useRef, useState } from 'react';
 import { HOST_API } from '../utils/hostApi';
 import Store from "../context/Context";
 
+
 const TodoForm = ({ listTodoId }) => {
   const formRef = useRef(null);
   const { state: { todo }, dispatch } = useContext(Store);
@@ -59,19 +60,23 @@ const TodoForm = ({ listTodoId }) => {
       });
   }
 
-  return <form ref={formRef}>
-    <div class="form-group">
+  return <form className="form-inline" ref={formRef}>
+    <div className="input-group mx-10">
       <input
+        className="form-control"
         type="text"
         name="name"
-        placeholder="¿Qué piensas hacer hoy?"
+        placeholder="¿Qué piensas hacer hoy?" 
         defaultValue={item.name}
         onChange={(event) => {
           setState({ ...state, name: event.target.value })
         }}  ></input>
-      {item.id && <button onClick={onEdit}>Actualizar</button>}
-      {!item.id && <button onClick={onAdd}>Crear</button>}
+      <span className="input-group-btn">
+        {item.id && <button className="btn btn-primary btn-lg" onClick={onEdit}>Actualizar</button>}
+        {!item.id && <button className="btn btn-primary btn-lg" onClick={onAdd}>Crear</button>}
+      </span>
     </div>
+    <br></br>
   </form>
 }
 

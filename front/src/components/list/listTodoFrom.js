@@ -27,18 +27,21 @@ const ListTodoForm = () => {
             });
     }
 
-    return <form ref={formRef} className="form">
-        <input
-            className="form-control"
-            type="text"
-            name="name"
-            placeholder="Lista de TO-DO"
-            onChange={(event) => {
-                setState({ ...state, listname: event.target.value })
-            }}  ></input>
-        <br />
-        <button onClick={onAdd} >Nueva lista</button>
-        <br />
+    return <form ref={formRef}>
+        <div className="input-group">
+            <input
+                className="form-control"
+                type="text"
+                name="name"
+                placeholder="Lista de TO-DO"
+                required
+                onChange={(event) => {
+                    setState({ ...state, listname: event.target.value })
+                }} />
+            <span className="input-group-btn">
+                <button onClick={onAdd} className="btn btn-primary btn-lg" >Nueva lista</button>
+            </span>
+        </div>
     </form>
 }
 

@@ -3,7 +3,7 @@ import { HOST_API } from "../utils/hostApi";
 import Store from "../context/Context";
 
 
-const TodoList = ({listTodoId}) => {
+const TodoList = ({ listTodoId }) => {
   const { state: { todo }, dispatch } = useContext(Store);
   const currentList = todo.list.filter(todo => {
     return todo.groupListId === listTodoId;
@@ -34,7 +34,7 @@ const TodoList = ({listTodoId}) => {
       name: todo.name,
       id: todo.id,
       completed: event.target.checked,
-      groupListId : todo.groupListId
+      groupListId: todo.groupListId
     };
     fetch(HOST_API + "/todo", {
       method: "PUT",
@@ -56,7 +56,7 @@ const TodoList = ({listTodoId}) => {
   return <div>
     <table >
       <thead>
-        <tr>
+        <tr align="center">
           <td>ID</td>
           <td>Tarea</td>
           <td>¿Completado?</td>
@@ -64,12 +64,12 @@ const TodoList = ({listTodoId}) => {
       </thead>
       <tbody>
         {currentList.map((todo) => {
-          return <tr key={todo.id} style={todo.completed ? decorationDone : {}}>
+          return <tr align="center" key={todo.id} style={todo.completed ? decorationDone : {}}>
             <td>{todo.id}</td>
             <td>{todo.name}</td>
             <td><input type="checkbox" defaultChecked={todo.completed} onChange={(event) => onChange(event, todo)}></input></td>
-            <td><button onClick={() => onDelete(todo.id)}>Eliminar</button></td>
-            <td><button onClick={() => onEdit(todo)}>Editar</button></td>
+            <td><button className="btn btn-primary" onClick={() => onDelete(todo.id)}>Eliminar</button></td>
+            <td><button className="btn btn-primary" disabled={todo.completed} onClick={() => onEdit(todo)}>Editar</button></td>
           </tr>
         })}
       </tbody>

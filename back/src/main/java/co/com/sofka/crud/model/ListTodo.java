@@ -1,6 +1,8 @@
 package co.com.sofka.crud.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
@@ -10,6 +12,8 @@ public class ListTodo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
+    @NotNull
     private String listname;
 
     @OneToMany(cascade = CascadeType.ALL)

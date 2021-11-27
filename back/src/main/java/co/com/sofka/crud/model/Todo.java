@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "todo")
@@ -11,6 +13,8 @@ public class Todo {
     @Id
     @GeneratedValue
     private Long id;
+    @NotBlank
+    @NotNull
     private String name;
     private boolean completed;
     private Long groupListId;
