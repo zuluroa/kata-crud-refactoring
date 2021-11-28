@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import { HOST_API_LIST } from "../utils/hostApi";
-import Store from "../context/Context";
+import Store from "../context/listTodo/Context";
 import TodoList from "../todo/TodoList";
 import TodoForm from "../todo/TodoForm";
+import StoreFromProvider from "../context/todo/State";
 
 const ListTodo = () => {
     const { state: { listTodo }, dispatch } = useContext(Store);
@@ -36,8 +37,10 @@ const ListTodo = () => {
                         </span>
                     </div>
                     <br></br>
+                    <StoreFromProvider>
                     <TodoForm listTodoId={listTodo.id} />
                     <TodoList listTodoId={listTodo.id} />
+                    </StoreFromProvider>
                 </div>
             </tr>
         })}

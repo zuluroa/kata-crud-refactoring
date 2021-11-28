@@ -1,11 +1,11 @@
 import React, { useContext, useRef, useState } from 'react';
 import { HOST_API } from '../utils/hostApi';
-import Store from "../context/Context";
+import StoreFrom from '../context/todo/Context';
 
 
 const TodoForm = ({ listTodoId }) => {
   const formRef = useRef(null);
-  const { state: { todo }, dispatch } = useContext(Store);
+  const { state: { todo }, dispatch } = useContext(StoreFrom);
   const item = todo.item;
   const [state, setState] = useState(item);
 

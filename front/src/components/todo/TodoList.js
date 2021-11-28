@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import { HOST_API } from "../utils/hostApi";
-import Store from "../context/Context";
+import StoreFrom from "../context/todo/Context";
 
 
 const TodoList = ({ listTodoId }) => {
-  const { state: { todo }, dispatch } = useContext(Store);
+  const { state: { todo }, dispatch } = useContext(StoreFrom);
   const currentList = todo.list.filter(todo => {
     return todo.groupListId === listTodoId;
   });
